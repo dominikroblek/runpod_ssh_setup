@@ -106,6 +106,13 @@ def main():
     )
     args = parser.parse_args()
 
+    # Log a warning if host key checking is disabled
+    if args.disable_host_key_checking:
+        logger.warning(
+            "Host key checking is disabled for '%s'. This may be insecure in production environments!",
+            args.host,
+        )
+
     # Parse the SSH command
     ssh_info = parse_ssh_command(args.ssh_cmd)
 
