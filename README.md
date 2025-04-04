@@ -64,9 +64,11 @@ Using `pip`:
 pip install runpod_ssh_setup
 ```
 
-This installs `runpod_ssh_setup` in your current environment (system-wide or virtualenv).
+This installs `runpod_ssh_setup` in your current environment (system-wide or
+virtualenv).
 
-For a global, isolated install, use [pipx](https://pypa.github.io/pipx/) (recommended):
+For a global, isolated install, use [`pipx`](https://pypa.github.io/pipx/)
+(recommended):
 
 ```bash
 pipx install runpod_ssh_setup
