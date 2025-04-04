@@ -11,8 +11,8 @@ runpod_ssh_setup \
   --ssh_cmd "ssh root@157.517.221.29 -p 19090 -i ~/.ssh/id_ed25519"
 ```
 
-This will either replace an existing `Host runpod` block in your `~/.ssh/config`, or add
-one if it does not exist:
+This command will either replace an existing `Host runpod` block in your `~/.ssh/config`
+or add one if it does not exist:
 
 ```txt
 Host runpod
@@ -24,7 +24,8 @@ Host runpod
 ```
 
 > **Tip**: You can copy the exact `--ssh_cmd` parameter directly from the RunPod
-> Console: **Pods** → **_your pod_** → **Connect** → **Connection Options** → **SSH** →
+> Console:
+> **Pods** → **_your pod_** → **Connect** → **Connection Options** → **SSH** →
 > **SSH over exposed TCP**.
 
 ## Options
@@ -37,10 +38,9 @@ Host runpod
 
 ### Disabling Host Key Checking
 
-If you add `--disable_host_key_checking`, it adds the following lines to disable host
-key checks to the `Host` block:
+Adding `--disable_host_key_checking` inserts the following lines into the `Host` block:
 
-```
+```text
 Host runpod
     ...
     UserKnownHostsFile /dev/null
@@ -49,10 +49,10 @@ Host runpod
 
 By default, host key checking is enabled.
 
-> **Security Note**: Disabling host key checking can be convenient (for convenience when
-> dealing with frequently changing hosts or cloud instances), but it exposes you to
-> potential man-in-the-middle attacks. **We recommend not to disable host key checks for
-> production or untrusted environments.**
+> **Security Note**: Disabling host key checking can be convenient for frequently
+> changing or ephemeral hosts (such as cloud instances), but it increases the risk of
+> man-in-the-middle attacks. We recommend keeping host key checks enabled in production
+> or untrusted environments.
 
 ## Installation
 
