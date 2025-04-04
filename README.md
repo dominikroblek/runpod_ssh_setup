@@ -48,6 +48,7 @@ Host runpod
 If you have [Poetry](https://python-poetry.org/) installed:
 
 ```bash
+poetry lock
 poetry install
 ```
 
