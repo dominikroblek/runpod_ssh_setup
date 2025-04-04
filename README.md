@@ -11,6 +11,9 @@ runpod_ssh_setup \
   --ssh_cmd "ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>"
 ```
 
+> **Note**: By **default**, this script disables host key checking for the new Host
+> entry.
+
 ### Example
 
 ```bash
@@ -20,7 +23,7 @@ runpod_ssh_setup \
 ```
 
 This will either replace an existing `Host runpod` block in your `~/.ssh/config`, or add
-one if it does not exist. The resulting entry will be:
+one if it does not exist. By default, the resulting entry will include:
 
 ```txt
 Host runpod
@@ -29,19 +32,24 @@ Host runpod
     Port 19090
     IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
+    UserKnownHostsFile /dev/null
+    StrictHostKeyChecking no
 ```
+
+> **Notes**:
+>
+> - You can conveniently copy the exact --ssh_command parameter directly from
+>   the [RunPod Console](https://www.runpod.io/console/pods) under **Pods** →
+>   **\<pod_name\>** → **Connect** → **Connection Options** → **SSH** → **SSH over exposed
+>   TCP**.
+> - If you add `--enable_host_key_checking`, those last two lines will be omitted.
 
 ### Options
 
-- **`--config`**: Path to your SSH config file (default: `~/.ssh/config`).
-- **`--host`**: The alias to use in the `Host <ALIAS>` entry.
-- **`--ssh_cmd`**: Must be in the exact format
-  `ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>`.
-
-> **Note**: You can conveniently copy the exact --ssh_command parameter directly from
-> the [RunPod Console](https://www.runpod.io/console/pods) under **Pods** →
-> **\<pod_name\>** → **Connect** → **Connection Options** → **SSH** → **SSH over exposed
-> TCP**.
+- `--config`: Path to your SSH config file (default: `~/.ssh/config`).
+- `--host`: The alias to use in the `Host <ALIAS>` entry.
+- `--enable_host_key_checking`: If present, skip disabling host key checks  (default: TODO).
+- `--ssh_cmd`: Must be in the exact format `ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>`, as provided by RunPod.
 
 ## Installation
 
