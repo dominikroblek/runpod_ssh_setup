@@ -56,6 +56,26 @@ By default, host key checking is enabled.
 
 ## Installation
 
+### Option 1: From Pypi
+
+Using pip:
+
+```bash
+pip install runpod_ssh_setup
+```
+
+This installs the `runpod_ssh_setup` command on your system or in your virtual environment.
+
+Alternativelly use [pipx](https://pypi.github.io/pipx/) (recommende):
+
+```bash
+pipx install runpod_ssh_setup
+```
+
+This installs `runpod_ssh_setup` globally, isolated from your system's site packages.
+
+### Option 1: Build Your Own
+
 If you have [Poetry](https://python-poetry.org/) installed:
 
 ```bash
