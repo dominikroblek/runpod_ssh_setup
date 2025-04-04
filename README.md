@@ -34,9 +34,9 @@ Host piran
 ### Options
 
 - **`--ssh_config`**: Path to your SSH config file (default: `~/.ssh/config`)
-- **`--name`**: The alias to use in the `Host <ALIAS>` entry.
+- **`--name`**: The alias to use in the `Host <ALIAS>` entry  (default: runpod)
 - **`--ssh_command`**: Must be in the exact format
-  `ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>`.
+  `ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>`
 
 > **Note**: You can conveniently copy the exact --ssh_command parameter directly from
 > the [RunPod Console](https://www.runpod.io/console/pods) under **Pods** →

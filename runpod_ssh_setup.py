@@ -74,8 +74,8 @@ def main():
     )
     parser.add_argument(
         "--name",
-        required=True,
-        help="The Host alias (e.g. 'siena').",
+        default="runpod",
+        help="The Host alias (default: runpod).",
     )
     parser.add_argument(
         "--ssh_command",
