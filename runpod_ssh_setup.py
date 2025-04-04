@@ -52,7 +52,10 @@ def join_blocks(blocks):
 
 
 def build_host_block(host_name, info, disable_host_key_checking):
-    """Build a Host block for the SSH config."""
+    """Build a Host block for the SSH config.
+
+    If disable_host_key_checking is True, add lines that skip storing/validating the host key.
+    """
     block = [
         f"Host {host_name}\n",
         f"    HostName {info['HostName']}\n",
@@ -86,12 +89,11 @@ def main():
         help="The Host alias (e.g., runpod).",
     )
     parser.add_argument(
-        "--enable_host_key_checking",
+        "--disable_host_key_checking",
         action="store_true",
         help=(
-            "If set, we do NOT add 'UserKnownHostsFile /dev/null' and "
-            "'StrictHostKeyChecking no' lines. By default, we add them (disabling host"
-            " key checks)."
+            "If set, adds 'UserKnownHostsFile /dev/null' and 'StrictHostKeyChecking no' "
+            "to disable host key checks. By default, host key checking is enabled."
         ),
     )
     parser.add_argument(
@@ -125,7 +127,7 @@ def main():
     new_block = build_host_block(
         args.host,
         ssh_info,
-        disable_host_key_checking=not args.enable_host_key_checking,
+        args.disable_host_key_checking,
     )
 
     # Try to replace an existing block for this Host
