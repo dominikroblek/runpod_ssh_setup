@@ -1,6 +1,7 @@
 import argparse
 import os
 import re
+from pathlib import Path
 
 
 def parse_ssh_command(ssh_cmd):
@@ -28,7 +29,8 @@ def split_into_blocks(lines):
     blocks = []
     current_block = []
     for line in lines:
-        if re.match(r"^\S", line):  # new unindented line => new block
+        # If the line starts with a non-whitespace char, it's a new block start
+        if re.match(r"^\S", line):
             if current_block:
                 blocks.append(current_block)
             current_block = [line]
@@ -68,8 +70,7 @@ def main():
     parser.add_argument(
         "--ssh_config",
         default="~/.ssh/config",
-        required=True,
-        help="Path to SSH config file (e.g., ~/.ssh/config).",
+        help="Path to SSH config file (default: ~/.ssh/config).",
     )
     parser.add_argument(
         "--name",
@@ -86,17 +87,19 @@ def main():
     # Parse the SSH command
     ssh_info = parse_ssh_command(args.ssh_command)
 
-    # Read or create the SSH config file
-    config_path = os.path.expanduser(args.ssh_config)
-    os.makedirs(os.path.dirname(config_path), exist_ok=True)
-    if os.path.isfile(config_path):
-        with open(config_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
+    # Resolve config file path and ensure parent directory exists
+    config_path = Path(args.ssh_config).expanduser()
+    config_path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+
+    # Read existing lines if file exists
+    file_exists = config_path.is_file()
+    if file_exists:
+        lines = config_path.read_text(encoding="utf-8").splitlines(keepends=True)
     else:
         lines = []
-    blocks = split_into_blocks(lines)
 
-    # Build the new Host block
+    # Split into blocks for manipulation
+    blocks = split_into_blocks(lines)
     new_block = build_host_block(args.name, ssh_info)
     replaced = False
 
@@ -104,24 +107,31 @@ def main():
     for i, block in enumerate(blocks):
         first_line = block[0].rstrip()
         if first_line.lower().startswith("host "):
-            host_patterns = first_line.split()[1:]  # skip "Host"
+            host_patterns = first_line.split()[1:]  # Skip the word "Host"
             if args.name in host_patterns:
+                print(f"Found existing Host entry for '{args.name}'. Replacing.")
                 blocks[i] = new_block
                 replaced = True
                 break
 
     # If not replaced, append a new block
     if not replaced:
+        print(f"No existing Host entry found for '{args.name}'. Adding new entry.")
         if blocks:
             last_block = blocks[-1]
+            # If the last line in the last block isn't empty, add a blank line
             if last_block and last_block[-1].strip():
                 last_block.append("\n")
         blocks.append(new_block)
 
-    # Write the updated config back to the file
+    # Reassemble final lines and write back to file
     final_lines = join_blocks(blocks)
-    with open(config_path, "w", encoding="utf-8") as f:
-        f.writelines(final_lines)
+    final_content = "".join(final_lines)
+    config_path.write_text(final_content, encoding="utf-8")
+
+    # Set strict permissions on new file if it didn't exist before
+    if not file_exists:
+        os.chmod(config_path, 0o600)
 
     print(f"Updated Host '{args.name}' in {config_path}")
 

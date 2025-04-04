@@ -2,23 +2,26 @@
 name = "runpodssh"
 version = "1.0.0"
 description = "Simple CLI to manage SSH config entries for RunPod."
-authors = [
-    { name = "Dominik Roblek" }
-]
+authors = [{ name = "Dominik Roblek" }]
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = []
 license = "MIT"
 
-keywords = ["prompt", "code", "formatting"]
+keywords = ["ssh", "config", "cli", "runpod", "automation", "setup"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Topic :: Utilities",
+    "Topic :: System :: Systems Administration",
     "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
 ]
 
 [project.scripts]
-inprompt = "inprompt:run"
+runpod-ssh-setup = "runpod_ssh_setup:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
