@@ -133,7 +133,7 @@ def main():
     if not file_exists:
         os.chmod(config_path, 0o600)
 
-    print(f"Updated Host '{args.name}' in {config_path}")
+    print(f"Successfully updated Host '{args.name}' in {config_path}.")
 
 
 if __name__ == "__main__":
