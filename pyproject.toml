@@ -1,7 +1,7 @@
 [project]
 name = "runpodssh"
 version = "1.0.0"
-description = "TODO"
+description = "Simple CLI to manage SSH config entries for RunPod."
 authors = [
     { name = "Dominik Roblek" }
 ]
