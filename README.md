@@ -3,15 +3,7 @@
 A simple CLI tool to manage SSH config entries for [RunPod](https://www.runpod.io/). It
 lets you add or update a `Host` block in your `~/.ssh/config` file automatically.
 
-## Usage
-
-```bash
-runpod_ssh_setup \
-  --host <HOST_ALIAS> \
-  --ssh_cmd "ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>"
-```
-
-### Example
+## Usage Example
 
 ```bash
 runpod_ssh_setup \
@@ -35,7 +27,7 @@ Host runpod
 > Console: **Pods** → **_your pod_** → **Connect** → **Connection Options** → **SSH** →
 > **SSH over exposed TCP**.
 
-### Options
+## Options
 
 - `--config`: Path to your SSH config file (default: `~/.ssh/config`).
 - `--host`: The alias to use in the `Host <ALIAS>` entry (required).
