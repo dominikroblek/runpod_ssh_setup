@@ -56,25 +56,23 @@ By default, host key checking is enabled.
 
 ## Installation
 
-### Option 1: From Pypi
+### Option 1: Install From PyPI
 
-Using pip:
+Using `pip`:
 
 ```bash
 pip install runpod_ssh_setup
 ```
 
-This installs the `runpod_ssh_setup` command on your system or in your virtual environment.
+This installs `runpod_ssh_setup` in your current environment (system-wide or virtualenv).
 
-Alternativelly use [pipx](https://pypi.github.io/pipx/) (recommende):
+For a global, isolated install, use [pipx](https://pypa.github.io/pipx/) (recommended):
 
 ```bash
 pipx install runpod_ssh_setup
 ```
 
-This installs `runpod_ssh_setup` globally, isolated from your system's site packages.
-
-### Option 1: Build Your Own
+### Option 2: Build From Source
 
 If you have [Poetry](https://python-poetry.org/) installed:
 
@@ -83,20 +81,20 @@ poetry lock
 poetry install
 ```
 
-Then run via:
+Then run:
 
 ```bash
 poetry run runpod_ssh_setup ...
 ```
 
-Or build and install:
+Or build a wheel and install it via pipx:
 
 ```bash
 poetry build
 pipx install dist/runpod_ssh_setup-*.whl
 ```
 
-Then use `runpod_ssh_setup` directly.
+Then you can run `runpod_ssh_setup` directly.
 
 ## License
 
