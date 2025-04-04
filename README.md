@@ -3,7 +3,7 @@
 A simple CLI tool to manage SSH config entries for [RunPod](https://www.runpod.io/). It
 lets you add or update a `Host` block in your `~/.ssh/config` file automatically.
 
-## Usage Example
+## Example
 
 ```bash
 runpod_ssh_setup \
@@ -37,13 +37,21 @@ Host runpod
 
 ### Disabling Host Key Checking
 
-If you add `--disable_host_key_checking`, it adds `UserKnownHostsFile /dev/null` and
-`StrictHostKeyChecking no` to disable host key checks. By default, host key checking is
-enabled.
+If you add `--disable_host_key_checking`, it adds the following lines to disable host
+key checks to the `Host` block:
+
+```
+    UserKnownHostsFile /dev/null
+    StrictHostKeyChecking no
+```
+
+By default, host key checking is enabled.
 
 > **Security Note**: Disabling host key checking can be convenient (for convenience when
 > dealing with frequently changing hosts or cloud instances), but it exposes you to
-> potential man-in-the-middle attacks. **We recommend not to disable host key checks for
+> potential man-in-the-middle attacks.
+>
+> **We recommend not to disable host key checks for
 > production or untrusted environments.**
 
 ## Installation
