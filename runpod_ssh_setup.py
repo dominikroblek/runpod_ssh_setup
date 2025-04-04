@@ -140,7 +140,10 @@ def main():
     if not file_exists:
         os.chmod(config_path, 0o600)
 
-    logger.info("Successfully updated Host '{}' in {}.", args.host, config_path)
+    if replaced:
+        logger.info("Successfully updated Host '{}' in {}.", args.host, config_path)
+    else:
+        logger.info("Successfully added Host '{}' to {}.", args.host, config_path)
 
 
 if __name__ == "__main__":
