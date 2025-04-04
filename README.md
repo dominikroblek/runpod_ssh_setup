@@ -6,7 +6,7 @@ It lets you add or update a `Host` block in your `~/.ssh/config` file automatica
 ## Usage
 
 ```bash
-runpod-ssh-setup \
+runpod_ssh_setup \
   --name <HOST_ALIAS> \
   --ssh_command "ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>"
 ```
@@ -14,7 +14,7 @@ runpod-ssh-setup \
 ### Example
 
 ```bash
-runpod-ssh-setup \
+runpod_ssh_setup \
   --name piran \
   --ssh_command "ssh root@157.517.221.29 -p 19090 -i ~/.ssh/id_ed25519"
 ```
@@ -54,17 +54,17 @@ poetry install
 This will install the script locally. You can then run it via:
 
 ```bash
-poetry run runpod-ssh-setup ...
+poetry run runpod_ssh_setup ...
 ```
 
 Alternatively, if you build and install it into your environment:
 
 ```bash
 poetry build
-pipx install dist/runpodssh-*.whl
+pipx install dist/runpod_ssh_setup-*.whl
 ```
 
-Then use `runpod-ssh-setup` directly.
+Then use `runpod_ssh_setup` directly.
 
 ## License
 
