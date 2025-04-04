@@ -51,9 +51,7 @@ By default, host key checking is enabled.
 
 > **Security Note**: Disabling host key checking can be convenient (for convenience when
 > dealing with frequently changing hosts or cloud instances), but it exposes you to
-> potential man-in-the-middle attacks.
->
-> **We recommend not to disable host key checks for
+> potential man-in-the-middle attacks. **We recommend not to disable host key checks for
 > production or untrusted environments.**
 
 ## Installation
