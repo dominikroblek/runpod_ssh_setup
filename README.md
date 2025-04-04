@@ -11,18 +11,6 @@ runpod-ssh-setup \
   --ssh_command "ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>"
 ```
 
-### Options
-
-- **`--ssh_config`**: Path to your SSH config file (default: `~/.ssh/config`)
-- **`--name`**: The alias to use in the `Host <ALIAS>` entry.
-- **`--ssh_command`**: Must be in the exact format
-  `ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>`.
-
-> **Note**: You can conveniently copy the exact --ssh_command parameter directly from
-> the [RunPod Console](https://www.runpod.io/console/pods) under **Pods** →
-> **\<pod_name\>** → **Connect** → **Connection Options** → **SSH** → **SSH over exposed
-> TCP**.
-
 ### Example
 
 ```bash
@@ -42,6 +30,18 @@ Host piran
     IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
 ```
+
+### Options
+
+- **`--ssh_config`**: Path to your SSH config file (default: `~/.ssh/config`)
+- **`--name`**: The alias to use in the `Host <ALIAS>` entry.
+- **`--ssh_command`**: Must be in the exact format
+  `ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>`.
+
+> **Note**: You can conveniently copy the exact --ssh_command parameter directly from
+> the [RunPod Console](https://www.runpod.io/console/pods) under **Pods** →
+> **\<pod_name\>** → **Connect** → **Connection Options** → **SSH** → **SSH over exposed
+> TCP**.
 
 ## Installation
 
