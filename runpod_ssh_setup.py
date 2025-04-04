@@ -31,7 +31,7 @@ def split_into_blocks(lines):
     blocks = []
     current_block = []
     for line in lines:
-        # If the line starts with a non-whitespace char, it's a new block start
+        # If the line starts with a non-whitespace char, it's a new block
         if re.match(r"^\S", line):
             if current_block:
                 blocks.append(current_block)
@@ -51,17 +51,23 @@ def join_blocks(blocks):
     return new_lines
 
 
-def build_host_block(host_name, info):
+def build_host_block(host_name, info, disable_host_key_checking):
     """Build a Host block for the SSH config."""
-    return [
+    block = [
         f"Host {host_name}\n",
         f"    HostName {info['HostName']}\n",
         f"    User {info['User']}\n",
         f"    Port {info['Port']}\n",
         f"    IdentityFile {info['IdentityFile']}\n",
         "    IdentitiesOnly yes\n",
-        "\n",
     ]
+    if disable_host_key_checking:
+        block += [
+            "    UserKnownHostsFile /dev/null\n",
+            "    StrictHostKeyChecking no\n",
+        ]
+    block.append("\n")
+    return block
 
 
 def main():
@@ -78,6 +84,14 @@ def main():
         "--host",
         required=True,
         help="The Host alias (e.g., runpod).",
+    )
+    parser.add_argument(
+        "--disable_host_key_checking",
+        action="store_false",
+        help=(
+            "If set, we add 'UserKnownHostsFile /dev/null' and "
+            "'StrictHostKeyChecking no' lines. By default, we add them (disabling host key checks)."
+        ),
     )
     parser.add_argument(
         "--ssh_cmd",
@@ -105,10 +119,16 @@ def main():
 
     # Split into blocks for manipulation
     blocks = split_into_blocks(lines)
-    new_block = build_host_block(args.host, ssh_info)
-    replaced = False
+
+    # Build our new or updated block
+    new_block = build_host_block(
+        args.host,
+        ssh_info,
+        disable_host_key_checking=args.disable_host_key_checking,
+    )
 
     # Try to replace an existing block for this Host
+    replaced = False
     for i, block in enumerate(blocks):
         first_line = block[0].rstrip()
         if first_line.lower().startswith("host "):
