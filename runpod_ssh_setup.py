@@ -66,8 +66,8 @@ def build_host_block(host_name, info, disable_host_key_checking):
     ]
     if disable_host_key_checking:
         logger.warning(
-            "Host key checking is disabled for '{}'."
-            " This may be insecure in production environments!",
+            "Host key checking is disabled for '{}'. This may be insecure in production"
+            " environments!",
             host_name,
         )
         block += [
