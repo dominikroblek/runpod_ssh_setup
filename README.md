@@ -41,6 +41,8 @@ If you add `--disable_host_key_checking`, it adds the following lines to disable
 key checks to the `Host` block:
 
 ```
+Host runpod
+    ...
     UserKnownHostsFile /dev/null
     StrictHostKeyChecking no
 ```
