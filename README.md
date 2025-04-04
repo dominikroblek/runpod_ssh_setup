@@ -61,7 +61,7 @@ Alternatively, if you build and install it into your environment:
 
 ```bash
 poetry build
-pip install dist/runpodssh-*.whl
+pipx install dist/runpodssh-*.whl
 ```
 
 Then use `runpod-ssh-setup` directly.
