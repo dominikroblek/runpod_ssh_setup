@@ -1,8 +1,10 @@
 [project]
-name = "runpodssh"
+name = "runpod_ssh_setup"
 version = "1.0.0"
 description = "Simple CLI to manage SSH config entries for RunPod."
-authors = [{ name = "Dominik Roblek" }]
+authors = [
+    { name = "Dominik Roblek" }
+]
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = []
