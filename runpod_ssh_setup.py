@@ -3,6 +3,8 @@ import os
 import re
 from pathlib import Path
 
+from loguru import logger
+
 
 def parse_ssh_command(ssh_cmd):
     """Parse the given SSH command and return a dictionary with connection details."""
@@ -112,14 +114,16 @@ def main():
         if first_line.lower().startswith("host "):
             host_patterns = first_line.split()[1:]  # Skip the word "Host"
             if args.host in host_patterns:
-                print(f"Found existing Host entry for '{args.host}'. Replacing.")
+                logger.info("Found existing Host entry for '{}'. Replacing.", args.host)
                 blocks[i] = new_block
                 replaced = True
                 break
 
     # If not replaced, append a new block
     if not replaced:
-        print(f"No existing Host entry found for '{args.host}'. Adding new entry.")
+        logger.info(
+            "No existing Host entry found for '{}'. Adding new entry.", args.host
+        )
         if blocks:
             last_block = blocks[-1]
             # If the last line in the last block isn't empty, add a blank line
@@ -136,7 +140,7 @@ def main():
     if not file_exists:
         os.chmod(config_path, 0o600)
 
-    print(f"Successfully updated Host '{args.host}' in {config_path}.")
+    logger.info("Successfully updated Host '{}' in {}.", args.host, config_path)
 
 
 if __name__ == "__main__":
