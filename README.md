@@ -7,23 +7,23 @@ It lets you add or update a `Host` block in your `~/.ssh/config` file automatica
 
 ```bash
 runpod_ssh_setup \
-  --name <HOST_ALIAS> \
-  --ssh_command "ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>"
+  --host <HOST_ALIAS> \
+  --ssh_cmd "ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>"
 ```
 
 ### Example
 
 ```bash
 runpod_ssh_setup \
-  --name piran \
-  --ssh_command "ssh root@157.517.221.29 -p 19090 -i ~/.ssh/id_ed25519"
+  --host runpod \
+  --ssh_cmd "ssh root@157.517.221.29 -p 19090 -i ~/.ssh/id_ed25519"
 ```
 
-This will either replace an existing `Host piran` block in your `~/.ssh/config`, or add
+This will either replace an existing `Host runpod` block in your `~/.ssh/config`, or add
 one if it does not exist. The resulting entry will be:
 
 ```txt
-Host piran
+Host runpod
     HostName 157.517.221.29
     User root
     Port 19090
@@ -33,9 +33,9 @@ Host piran
 
 ### Options
 
-- **`--ssh_config`**: Path to your SSH config file (default: `~/.ssh/config`).
-- **`--name`**: The alias to use in the `Host <ALIAS>` entry  (default: runpod).
-- **`--ssh_command`**: Must be in the exact format
+- **`--config`**: Path to your SSH config file (default: `~/.ssh/config`).
+- **`--host`**: The alias to use in the `Host <ALIAS>` entry.
+- **`--ssh_cmd`**: Must be in the exact format
   `ssh <USER>@<HOST> -p <PORT> -i <IDENTITY_FILE>`.
 
 > **Note**: You can conveniently copy the exact --ssh_command parameter directly from

@@ -68,27 +68,30 @@ def main():
         description="Add or update a Host entry for RunPod in ~/.ssh/config."
     )
     parser.add_argument(
-        "--ssh_config",
+        "--config",
         default="~/.ssh/config",
         help="Path to SSH config file (default: ~/.ssh/config).",
     )
     parser.add_argument(
-        "--name",
-        default="runpod",
-        help="The Host alias (default: runpod).",
+        "--host",
+        required=True,
+        help="The Host alias (e.g., runpod).",
     )
     parser.add_argument(
-        "--ssh_command",
+        "--ssh_cmd",
         required=True,
-        help="SSH command: 'ssh <user>@<host> -p <port> -i <identity_file>'.",
+        help=(
+            "SSH command provided by RunPod in exactly the format: "
+            "'ssh <user>@<host> -p <port> -i <identity_file>'."
+        ),
     )
     args = parser.parse_args()
 
     # Parse the SSH command
-    ssh_info = parse_ssh_command(args.ssh_command)
+    ssh_info = parse_ssh_command(args.ssh_cmd)
 
     # Resolve config file path and ensure parent directory exists
-    config_path = Path(args.ssh_config).expanduser()
+    config_path = Path(args.config).expanduser()
     config_path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
 
     # Read existing lines if file exists
@@ -100,7 +103,7 @@ def main():
 
     # Split into blocks for manipulation
     blocks = split_into_blocks(lines)
-    new_block = build_host_block(args.name, ssh_info)
+    new_block = build_host_block(args.host, ssh_info)
     replaced = False
 
     # Try to replace an existing block for this Host
@@ -108,15 +111,15 @@ def main():
         first_line = block[0].rstrip()
         if first_line.lower().startswith("host "):
             host_patterns = first_line.split()[1:]  # Skip the word "Host"
-            if args.name in host_patterns:
-                print(f"Found existing Host entry for '{args.name}'. Replacing.")
+            if args.host in host_patterns:
+                print(f"Found existing Host entry for '{args.host}'. Replacing.")
                 blocks[i] = new_block
                 replaced = True
                 break
 
     # If not replaced, append a new block
     if not replaced:
-        print(f"No existing Host entry found for '{args.name}'. Adding new entry.")
+        print(f"No existing Host entry found for '{args.host}'. Adding new entry.")
         if blocks:
             last_block = blocks[-1]
             # If the last line in the last block isn't empty, add a blank line
@@ -133,7 +136,7 @@ def main():
     if not file_exists:
         os.chmod(config_path, 0o600)
 
-    print(f"Successfully updated Host '{args.name}' in {config_path}.")
+    print(f"Successfully updated Host '{args.host}' in {config_path}.")
 
 
 if __name__ == "__main__":

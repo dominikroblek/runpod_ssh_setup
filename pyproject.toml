@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 [project.scripts]
-runpod-ssh-setup = "runpod_ssh_setup:main"
+runpod_ssh_setup = "runpod_ssh_setup:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
