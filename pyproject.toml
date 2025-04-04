@@ -1,0 +1,31 @@
+[project]
+name = "runpodssh"
+version = "1.0.0"
+description = "TODO"
+authors = [
+    { name = "Dominik Roblek" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+license = "MIT"
+
+keywords = ["prompt", "code", "formatting"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.scripts]
+inprompt = "inprompt:run"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+# Tells Poetry we do NOT have a traditional package folder,
+# but DO want to include the single-file module `runpod_ssh_setup.py`.
+packages = []
+include = ["runpod_ssh_setup.py"]
