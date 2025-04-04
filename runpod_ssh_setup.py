@@ -65,7 +65,7 @@ def build_host_block(host_name, info):
 
 
 def main():
-    """CLI entry point for adding or updating a Host entry in an SSH config."""
+    """CLI entry point for adding or updating a RunPod Host entry in an SSH config."""
     parser = argparse.ArgumentParser(
         description="Add or update a Host entry for RunPod in ~/.ssh/config."
     )
