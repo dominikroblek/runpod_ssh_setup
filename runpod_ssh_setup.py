@@ -86,11 +86,12 @@ def main():
         help="The Host alias (e.g., runpod).",
     )
     parser.add_argument(
-        "--disable_host_key_checking",
-        action="store_false",
+        "--enable_host_key_checking",
+        action="store_true",
         help=(
-            "If set, we add 'UserKnownHostsFile /dev/null' and "
-            "'StrictHostKeyChecking no' lines. By default, we add them (disabling host key checks)."
+            "If set, we do NOT add 'UserKnownHostsFile /dev/null' and "
+            "'StrictHostKeyChecking no' lines. By default, we add them (disabling host"
+            " key checks)."
         ),
     )
     parser.add_argument(
@@ -124,7 +125,7 @@ def main():
     new_block = build_host_block(
         args.host,
         ssh_info,
-        disable_host_key_checking=args.disable_host_key_checking,
+        disable_host_key_checking=not args.enable_host_key_checking,
     )
 
     # Try to replace an existing block for this Host
