@@ -1,31 +1,40 @@
 # RunPod SSH Setup
 
-A simple CLI tool to manage SSH config entries for [RunPod](https://www.runpod.io/).
+Tired of manually updating your `~/.ssh/config` file every time you spin up a
+[RunPod](https://www.runpod.io/) instance?
 
-Its main purpose is to let you add or update a `Host` block in your `~/.ssh/config` file
-automatically by copying the exact `--ssh_cmd` parameter directly from the RunPod
-Console: **Pods** → **_your pod_** → **Connect** → **Connection Options** → **SSH** →
-**SSH over exposed TCP**.
+`runpod_ssh_setup` is a simple command-line tool that automates this. It takes the
+standard SSH connection command provided by RunPod and automatically creates or updates
+a corresponding `Host` entry in your SSH configuration file.
 
-## Example
+This allows you to connect to your pods using a simple alias (e.g., `ssh runpod`)
+instead of the full command.
 
-```bash
-runpod_ssh_setup \
-  --host runpod \
-  --ssh_cmd "ssh root@157.517.221.29 -p 19090 -i ~/.ssh/id_ed25519"
-```
+## How it Works: Example
 
-This command will either replace an existing `Host runpod` block in your `~/.ssh/config`
-or add one if it does not exist:
+1. Copy the SSH command from the RunPod UI:
 
-```txt
-Host runpod
-    HostName 157.517.221.29
-    User root
-    Port 19090
-    IdentityFile ~/.ssh/id_ed25519
-    IdentitiesOnly yes
-```
+   **Pods** → **_your pod_** → **Connect**
+   → **Connection Options** → **SSH** → **SSH over exposed TCP**
+
+2. Run the tool with your desired host alias:
+
+   ```bash
+   runpod_ssh_setup \
+     --host runpod \
+     --ssh_cmd "ssh root@157.517.221.29 -p 19090 -i ~/.ssh/id_ed25519"
+   ```
+
+3. The tool adds or updates the entry in `~/.ssh/config`:
+
+   ```txt
+   Host runpod
+      HostName 157.517.221.29
+      User root
+      Port 19090
+      IdentityFile ~/.ssh/id_ed25519
+      IdentitiesOnly yes
+   ```
 
 ## Options
 

@@ -11,7 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [1.0.1] - 2025-04-07
 
-TODO
+### Changed
+
+- Improved README clarity by emphasizing the source of the `--ssh_cmd` parameter from
+  the RunPod UI.
 
 ## [1.0.0] - 2025-04-03
 
