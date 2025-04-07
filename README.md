@@ -1,7 +1,11 @@
 # RunPod SSH Setup
 
-A simple CLI tool to manage SSH config entries for [RunPod](https://www.runpod.io/). It
-lets you add or update a `Host` block in your `~/.ssh/config` file automatically.
+A simple CLI tool to manage SSH config entries for [RunPod](https://www.runpod.io/).
+
+Its main purpose is to let you add or update a `Host` block in your `~/.ssh/config` file
+automatically by copying the exact `--ssh_cmd` parameter directly from the RunPod
+Console: **Pods** → **_your pod_** → **Connect** → **Connection Options** → **SSH** →
+**SSH over exposed TCP**.
 
 ## Example
 
@@ -22,11 +26,6 @@ Host runpod
     IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
 ```
-
-> **Tip**: You can copy the exact `--ssh_cmd` parameter directly from the RunPod
-> Console:
-> **Pods** → **_your pod_** → **Connect** → **Connection Options** → **SSH** →
-> **SSH over exposed TCP**.
 
 ## Options
 
