@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - _Details of upcoming changes go here (if any)._
 
+### Changed
+
+- Minor stylistic code change.
+
 ## [1.0.1] - 2025-04-07
 
 ### Changed

@@ -78,38 +78,8 @@ def build_host_block(host_name, info, disable_host_key_checking):
     return block
 
 
-def main():
+def main(args: argparse.Namespace):
     """CLI entry point for adding or updating a RunPod Host entry in an SSH config."""
-    parser = argparse.ArgumentParser(
-        description="Add or update a Host entry for RunPod in ~/.ssh/config."
-    )
-    parser.add_argument(
-        "--config",
-        default="~/.ssh/config",
-        help="Path to SSH config file (default: ~/.ssh/config).",
-    )
-    parser.add_argument(
-        "--host",
-        required=True,
-        help="The Host alias (e.g., runpod).",
-    )
-    parser.add_argument(
-        "--disable_host_key_checking",
-        action="store_true",
-        help=(
-            "If set, adds 'UserKnownHostsFile /dev/null' and 'StrictHostKeyChecking no' "
-            "to disable host key checks. By default, host key checking is enabled."
-        ),
-    )
-    parser.add_argument(
-        "--ssh_cmd",
-        required=True,
-        help=(
-            "SSH command provided by RunPod in exactly the format: "
-            "'ssh <user>@<host> -p <port> -i <identity_file>'."
-        ),
-    )
-    args = parser.parse_args()
 
     # Parse the SSH command
     ssh_info = parse_ssh_command(args.ssh_cmd)
@@ -175,4 +145,33 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Add or update a Host entry for RunPod in ~/.ssh/config."
+    )
+    parser.add_argument(
+        "--config",
+        default="~/.ssh/config",
+        help="Path to SSH config file (default: ~/.ssh/config).",
+    )
+    parser.add_argument(
+        "--host",
+        required=True,
+        help="The Host alias (e.g., runpod).",
+    )
+    parser.add_argument(
+        "--disable_host_key_checking",
+        action="store_true",
+        help=(
+            "If set, adds 'UserKnownHostsFile /dev/null' and 'StrictHostKeyChecking no' "
+            "to disable host key checks. By default, host key checking is enabled."
+        ),
+    )
+    parser.add_argument(
+        "--ssh_cmd",
+        required=True,
+        help=(
+            "SSH command provided by RunPod in exactly the format: "
+            "'ssh <user>@<host> -p <port> -i <identity_file>'."
+        ),
+    )
+    main(parser.parse_args())
